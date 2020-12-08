@@ -37,6 +37,15 @@
   }
 }
 
+.loggedInRoutes{
+  background-image: url(./Assets/fireworks.jpeg);
+  background-size: auto;
+  height: 100%;
+  min-height: 100vh;
+}
+
+
+
 
 
 

@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 export class CharacterList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedRowId : 0
-    };
+    this.state = {};
   }
 
   handleSelectionChange = (event) => {
@@ -20,7 +18,8 @@ export class CharacterList extends React.Component {
       selectedRowId: id,
     });
     const characters = this.props.characters;
-    const selectedCharacter = characters.find(character => character.id === id)
+    const selectedCharacter = characters.find(character => character.id == id)
+    console.log(id, characters)
     this.props.setSelectedCharacter(selectedCharacter);
   };
 

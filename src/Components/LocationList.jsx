@@ -7,29 +7,26 @@ import { Link } from "react-router-dom";
 export class LocationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedRowId : 0
-    };
-    this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-
+    this.state = {};
   }
 
-  handleSelectionChange(event) {
+  handleSelectionChange = (event) => {
     const id = event.rowIds[0]
     this.setState({
       selectedRowId: id,
     });
     const locations = this.props.locations;
-    const selectedLocation = locations.find(location => location.id === id)
+    const selectedLocation = locations.find(location => location.id == id)
     this.props.setSelectedLocation(selectedLocation);
   };
 
-  handleDeleteClick(event) {
+  handleDeleteClick = (event) => {
     this.deleteLocation();
   };
 
-  deleteLocation() {
+  
+
+  deleteLocation = () => {
     const id = this.state.selectedRowId;
     fetch(`${APIURL}/location/${id}`, {
       method: "DELETE",

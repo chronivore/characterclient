@@ -12,6 +12,7 @@ import { withRouter } from "react-router";
   }
 
   handleSubmitCharacter = (event) => {
+    console.log("yo")
     if (this.props.selectedCharacter) {
       this.updateCharacter();
     } else {
@@ -183,7 +184,7 @@ import { withRouter } from "react-router";
             <Button
               variant="contained"
               color="primary"
-              onClick={this.handleSubmit}
+              onClick={this.handleSubmitCharacter}
             >
               Submit
             </Button>{" "}

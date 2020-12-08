@@ -20,6 +20,7 @@ export class LoggedInRoutes extends React.Component {
 
   componentDidMount = () => {
     this.fetchCharacters();
+    this.fetchLocations();
   }
 
   fetchCharacters = () => {
@@ -32,7 +33,6 @@ export class LoggedInRoutes extends React.Component {
     })
       .then((res) => res.json())
       .then((characters) => {
-        console.log(characters);
         this.setState({
           isLoading: false,
           characters: characters,
@@ -61,6 +61,7 @@ export class LoggedInRoutes extends React.Component {
   };
 
   setSelectedCharacter = (selectedCharacter) => {
+    console.log(selectedCharacter)
     this.setState({
       selectedCharacter,
     });

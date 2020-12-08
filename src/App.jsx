@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { LoggedOutRoutes } from "./LoggedOutRoutes";
 import { LoggedInRoutes } from "./LoggedInRoutes";
 
@@ -29,7 +28,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.sessionToken) {
       return (
-        <LoggedInRoutes sessionToken={this.state.sessionToken} updateToken={this.updateToken} logout={this.logout} />
+        <LoggedInRoutes className="loggedInRoutes" sessionToken={this.state.sessionToken} updateToken={this.updateToken} logout={this.logout} />
       );
     } else {
       return <LoggedOutRoutes updateToken={this.updateToken} />;

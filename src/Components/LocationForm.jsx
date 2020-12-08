@@ -6,19 +6,19 @@ import APIURL from "../Helpers/environment";
 import { withRouter } from "react-router";
 
 class LocationForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-  
-  handleSubmitLocation = (event) => {
-    if (this.props.selectedLocation) {
-    this.updateLocation();
-  } else {
-      this.createLocation();
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
-};
+
+  handleSubmitLocation = (event) => {
+    console.log("yo");
+    if (this.props.selectedLocation) {
+      this.updateLocation();
+    } else {
+      this.createLocation();
+    }
+  };
 
   handleNameChange = (event) => {
     this.setState({
@@ -44,6 +44,10 @@ class LocationForm extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.setState(this.props.selectedLocation);
+  }
+
   createLocation = () => {
     fetch(`${APIURL}/location/`, {
       method: "POST",
@@ -52,13 +56,13 @@ class LocationForm extends React.Component {
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        'Authorization': this.props.sessionToken
+        Authorization: this.props.sessionToken,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        this.props.history.push('/LocationList')
+        this.props.history.push("/LocationList");
         this.props.fetchLocations();
       })
       .catch((err) => console.log(err));
@@ -73,12 +77,12 @@ class LocationForm extends React.Component {
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        'Authorization': this.props.sessionToken
+        Authorization: this.props.sessionToken,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        this.props.history.push('/LocationList')
+        this.props.history.push("/LocationList");
         this.props.fetchLocation();
       })
       .catch((err) => console.log(err));
@@ -127,7 +131,7 @@ class LocationForm extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              onClick={this.handleSubmit}
+              onClick={this.handleSubmitLocation}
             >
               Submit
             </Button>{" "}
