@@ -11,14 +11,13 @@ import { withRouter } from "react-router";
     this.state = {};
   }
 
-  handleSubmit = (event) => {
+  handleSubmitCharacter = (event) => {
     if (this.props.selectedCharacter) {
       this.updateCharacter();
     } else {
     this.createCharacter();
     }
   };
-
 
   handleNameChange = (event) => {
     this.setState({
@@ -169,7 +168,7 @@ import { withRouter } from "react-router";
             <TextField
               id="location"
               label="location"
-              vValue={this.state.location}
+              value={this.state.location}
               onChange={this.handleLocationChange}
             />
             <br />

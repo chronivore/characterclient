@@ -7,10 +7,15 @@ import { Link } from "react-router-dom";
 export class LocationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedRowId : 0
+    };
+    this.handleSelectionChange = this.handleSelectionChange.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+
   }
 
-  handleSelectionChange = (event) => {
+  handleSelectionChange(event) {
     const id = event.rowIds[0]
     this.setState({
       selectedRowId: id,
@@ -20,11 +25,11 @@ export class LocationList extends React.Component {
     this.props.setSelectedLocation(selectedLocation);
   };
 
-  handleDeleteClick = (event) => {
+  handleDeleteClick(event) {
     this.deleteLocation();
   };
 
-  deleteLocation = () => {
+  deleteLocation() {
     const id = this.state.selectedRowId;
     fetch(`${APIURL}/location/${id}`, {
       method: "DELETE",
@@ -51,7 +56,7 @@ export class LocationList extends React.Component {
 
     return (
       <div>
-        <div id="locationList" style={{ height: 600, width: "100%" }}>
+        <div style={{ height: 600, width: "100%" }}>
           <DataGrid
             rows={this.props.locations}
             columns={columns}

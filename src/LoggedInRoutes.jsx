@@ -13,7 +13,8 @@ export class LoggedInRoutes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true, // find loading gif
+      isLoading: true, 
+      characters: []
     };
   }
 
@@ -34,7 +35,7 @@ export class LoggedInRoutes extends React.Component {
         console.log(characters);
         this.setState({
           isLoading: false,
-          characters,
+          characters: characters,
         });
       })
       .catch((err) => console.log(err));
@@ -81,7 +82,7 @@ export class LoggedInRoutes extends React.Component {
             <nav>
               <ul>
                 <li>
-                  <Link to="/userlanding">Home</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
                   <Link onClick={this.props.logout} to="/logout">Logout</Link>  
@@ -90,9 +91,6 @@ export class LoggedInRoutes extends React.Component {
             </nav>
 
             <Switch>
-              <Route path="/userlanding">
-                <UserLanding />
-              </Route>
               <Route path="/editcharacter">
                 <CharacterFormWithRouter
                   fetchCharacters={this.fetchCharacters}
@@ -126,7 +124,7 @@ export class LoggedInRoutes extends React.Component {
                   sessionToken={this.props.sessionToken}
                 />
                 </Route>
-                <Route path="newlocation">
+                <Route path="/newlocation">
                   <LocationFormWithRouter
                   fetchLocations={this.fetchLocations}
                   locations={this.state.locations}
@@ -140,6 +138,9 @@ export class LoggedInRoutes extends React.Component {
                   locations={this.state.locations}
                   sessionToken={this.props.sessionToken}
                 />
+              </Route>
+              <Route path="/">
+                <UserLanding />
               </Route>
             </Switch>
           </div>

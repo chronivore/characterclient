@@ -10,8 +10,9 @@ class LocationForm extends React.Component {
         super(props);
         this.state = {};
     }
-    
-handleSubmit = (event) => {
+
+  
+  handleSubmitLocation = (event) => {
     if (this.props.selectedLocation) {
     this.updateLocation();
   } else {
