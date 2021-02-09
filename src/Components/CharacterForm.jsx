@@ -5,6 +5,7 @@ import Container from "@material-ui/core/Container";
 import APIURL from "../Helpers/environment";
 import { withRouter } from "react-router";
 
+
  class CharacterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -87,7 +88,6 @@ import { withRouter } from "react-router";
       .then((data) => {
         console.log(data);
         this.props.history.push('/CharacterList')
-        this.props.fetchCharacters();
       })
       .catch((err) => console.log(err));
   };
@@ -107,7 +107,6 @@ import { withRouter } from "react-router";
       .then((response) => response.json())
       .then((data) => {
         this.props.history.push('/CharacterList')
-        this.props.fetchCharacters();
       })
       .catch((err) => console.log(err));
   };

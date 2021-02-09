@@ -1,47 +1,46 @@
 import React from "react";
-import APIURL from "../Helpers/environment";
 import { DataGrid } from "@material-ui/data-grid";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-
-
+import { fetchCharacters, deleteCharacter } from "../API/characters";
 
 export class CharacterList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      characters: [],
+    };
   }
 
+  componentDidMount = () => {
+    this.refreshCharacterList()
+  };
+
+  refreshCharacterList = () => {
+    fetchCharacters(this.props.sessionToken).then((characters) => {
+      this.setState({
+        isLoading: false,
+        characters: characters,
+      });
+    });
+  };
+
   handleSelectionChange = (event) => {
-    const id = event.rowIds[0]
+    const id = event.rowIds[0];
     this.setState({
       selectedRowId: id,
     });
-    const characters = this.props.characters;
-    const selectedCharacter = characters.find(character => character.id == id)
-    console.log(id, characters)
+    const characters = this.state.characters;
+    const selectedCharacter = characters.find(
+      (character) => character.id == id
+    );
+    console.log(id, characters);
     this.props.setSelectedCharacter(selectedCharacter);
   };
 
   handleDeleteClick = (event) => {
-    this.deleteCharacter();
-  };
-
-  deleteCharacter = () => {
-    const id = this.state.selectedRowId;
-    fetch(`${APIURL}/character/${id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        'Authorization': this.props.sessionToken
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        this.props.fetchCharacters();
-      })
-      .catch((err) => console.log(err));
+    deleteCharacter(this.props.sessionToken, this.state.selectedRowId)
+    .then(this.refreshCharacterList)
   };
 
   render() {
@@ -66,7 +65,7 @@ export class CharacterList extends React.Component {
       <div>
         <div id="characterList" style={{ height: 600, width: "100%" }}>
           <DataGrid
-            rows={this.props.characters}
+            rows={this.state.characters}
             columns={columns}
             pageSize={20}
             onSelectionChange={this.handleSelectionChange}
@@ -75,12 +74,9 @@ export class CharacterList extends React.Component {
         {this.state.selectedRowId ? (
           <div id="buttonDiv">
             <Link to="/editcharacter">
-            <Button
-              variant="contained"
-              color="primary"
-            >
-              Update Character!{" "}
-            </Button>
+              <Button variant="contained" color="primary">
+                Update Character!{" "}
+              </Button>
             </Link>{" "}
             <Button
               variant="contained"

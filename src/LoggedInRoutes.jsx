@@ -14,32 +14,12 @@ export class LoggedInRoutes extends React.Component {
     super(props);
     this.state = {
       isLoading: true, 
-      characters: []
     };
   }
 
   componentDidMount = () => {
-    this.fetchCharacters();
     this.fetchLocations();
   }
-
-  fetchCharacters = () => {
-    fetch(`${APIURL}/character/`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "Authorization": this.props.sessionToken
-      }),
-    })
-      .then((res) => res.json())
-      .then((characters) => {
-        this.setState({
-          isLoading: false,
-          characters: characters,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
 
   fetchLocations = () => {
     fetch(`${APIURL}/location/`, {
@@ -94,25 +74,18 @@ export class LoggedInRoutes extends React.Component {
             <Switch>
               <Route path="/editcharacter">
                 <CharacterFormWithRouter
-                  fetchCharacters={this.fetchCharacters}
-                  characters={this.state.characters}
                   selectedCharacter={this.state.selectedCharacter}
-                  setSelectedCharacter={this.setSelectedCharacter}
                   sessionToken={this.props.sessionToken}
                 />
               </Route>
               <Route path="/newcharacter">
                 <CharacterFormWithRouter
-                  fetchCharacters={this.fetchCharacters}
-                  characters={this.state.characters}
                   sessionToken={this.props.sessionToken}
                 />
               </Route>
               <Route path="/characterlist">
                 <CharacterList
                   setSelectedCharacter={this.setSelectedCharacter}
-                  fetchCharacters={this.fetchCharacters}
-                  characters={this.state.characters}
                   sessionToken={this.props.sessionToken}
                 />
               </Route>
