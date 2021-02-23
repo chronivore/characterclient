@@ -181,6 +181,7 @@ import { withRouter } from "react-router";
             <br />
             <br />
             <Button
+              id="submit"
               variant="contained"
               color="primary"
               onClick={this.handleSubmitCharacter}

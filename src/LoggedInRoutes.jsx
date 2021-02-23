@@ -7,26 +7,26 @@ import { UserLanding } from "./Components/UserLanding";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { LocationFormWithRouter } from "./Components/LocationForm";
 import { LocationList } from "./Components/LocationList";
-
+import Button from "@material-ui/core/Button";
 
 export class LoggedInRoutes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true, 
+      isLoading: true,
     };
   }
 
   componentDidMount = () => {
     this.fetchLocations();
-  }
+  };
 
   fetchLocations = () => {
     fetch(`${APIURL}/location/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-         "Authorization": this.props.sessionToken
+        Authorization: this.props.sessionToken,
       }),
     })
       .then((res) => res.json())
@@ -41,7 +41,7 @@ export class LoggedInRoutes extends React.Component {
   };
 
   setSelectedCharacter = (selectedCharacter) => {
-    console.log(selectedCharacter)
+    console.log(selectedCharacter);
     this.setState({
       selectedCharacter,
     });
@@ -63,10 +63,28 @@ export class LoggedInRoutes extends React.Component {
             <nav>
               <ul>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/">
+                    <Button
+                      id="Home"
+                      variant="contained"
+                      color="primary"
+                      onClick={this.handleSubmit}
+                    >
+                      Home
+                    </Button>
+                  </Link>
                 </li>
                 <li>
-                  <Link onClick={this.props.logout} to="/logout">Logout</Link>  
+                  <Link to="/logout">
+                    <Button
+                      id="Logout"
+                      variant="contained"
+                      color="primary"
+                      onClick={this.props.logout}
+                    >
+                      Logout
+                    </Button>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -97,14 +115,14 @@ export class LoggedInRoutes extends React.Component {
                   setSelectedLocation={this.setSelectedLocation}
                   sessionToken={this.props.sessionToken}
                 />
-                </Route>
-                <Route path="/newlocation">
-                  <LocationFormWithRouter
+              </Route>
+              <Route path="/newlocation">
+                <LocationFormWithRouter
                   fetchLocations={this.fetchLocations}
                   locations={this.state.locations}
                   sessionToken={this.props.sessionToken}
-                  />
-                </Route>
+                />
+              </Route>
               <Route path="/locationlist">
                 <LocationList
                   setSelectedLocation={this.setSelectedLocation}

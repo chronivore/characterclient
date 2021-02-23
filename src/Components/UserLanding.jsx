@@ -12,6 +12,7 @@ export class UserLanding extends React.Component {
       <div>
         <Link to="/newcharacter">
           <Button
+            id="newcharacter"
             variant="contained"
             color="primary"
             onClick={this.handleSubmit}
